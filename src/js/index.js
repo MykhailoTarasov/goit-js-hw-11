@@ -77,3 +77,35 @@ function handleIntersect(evt) {
 
 }
 
+// function handlerLoadMoreBtn() {
+//   pixabayAPI.page += 1;
+//   searchMorePhotos();
+   
+// }
+
+// async function searchMorePhotos() {
+//   try {
+//     const result = pixabayAPI.page * 40;
+//     const { data } = await pixabayAPI.fetchPhotos();
+//     if (result >= data.totalHits) {
+//       Notify.failure("We're sorry, but you've reached the end of search results.");
+//       loadMoreBtn.hidden = true;
+//       return;
+//     };
+//     gallery.insertAdjacentHTML('beforeend', createMarkup(data.hits)); 
+//     // addSmoothScroll();
+//     simplelightbox.refresh();
+//   } catch (error) {
+    
+//   }
+// }
+
+// function addSmoothScroll() {
+//   const { height: cardHeight } = document
+//     .querySelector(".gallery")
+//     .firstElementChild.getBoundingClientRect();
+//   window.scrollBy({
+//     top: cardHeight * 2,
+//     behavior: "smooth",
+//   });
+// }
