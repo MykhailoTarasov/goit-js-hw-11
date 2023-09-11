@@ -13,13 +13,14 @@ const simplelightbox = new SimpleLightbox('.gallery a', {});
 
 const options = {
   root: null,
-  rootMargin: '400px',
+  rootMargin: '0px',
   threshold: 1.0,
 };
 
 const observer = new IntersectionObserver(handleIntersect, options);
+
 searchForm.addEventListener('submit', handlerSearchForm);
-// loadMoreBtn.addEventListener('click', handlerLoadMoreBtn);
+loadMoreBtn.addEventListener('click', handlerLoadMoreBtn);
 
 function handlerSearchForm(evt) {
   evt.preventDefault();
@@ -51,12 +52,25 @@ async function searchPhotos() {
     };
 }
 
-function handleIntersect(evt) {
-    pixabayAPI.page += 1;
-    if (evt[0].isIntersecting) {
-      searchMorePhotos(); 
+function handleIntersect(entries) {
+  entries.forEach(async entry => {
+    if (entry.isIntersecting) {
+      pixabayAPI.page += 1;
+      const result = pixabayAPI.page * 40;
+      const { data } = await pixabayAPI.fetchPhotos();
+        
+      gallery.insertAdjacentHTML('beforeend', createMarkup(data.hits));
+      if (result >= data.totalHits) {
+        observer.unobserve(target);
+        Notify.failure("We're sorry, but you've reached the end of search results.");
+       
+        return;
+      };
+
+      simplelightbox.refresh();
     }
-  }
+  });
+}
 
   async function searchMorePhotos () {
     try {
