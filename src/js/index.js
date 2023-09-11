@@ -20,7 +20,7 @@ const options = {
 const observer = new IntersectionObserver(handleIntersect, options);
 
 searchForm.addEventListener('submit', handlerSearchForm);
-loadMoreBtn.addEventListener('click', handlerLoadMoreBtn);
+// loadMoreBtn.addEventListener('click', handlerLoadMoreBtn);
 
 function handlerSearchForm(evt) {
   evt.preventDefault();
